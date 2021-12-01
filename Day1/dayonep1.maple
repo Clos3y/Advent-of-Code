@@ -1,5 +1,6 @@
 restart;
 
-data := readdata("input.txt",integer);
+data := readdata("input.txt",integer):
 
+# True statements are the desired ones
 add(is(data[i+1]>data[i]),i=1..nops(data)-1);
