@@ -1,0 +1,5 @@
+restart;
+
+data := readdata("input.txt",integer);
+
+add(is(data[i+1]>data[i]),i=1..nops(data)-1);

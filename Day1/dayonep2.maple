@@ -1,0 +1,7 @@
+restart;
+
+data := readdata("input.txt",integer);
+
+newData := [seq(add(data[i],i=j..j+2),j=1..nops(data)-2)];
+
+add(is(newData[i+1]>newData[i]),i=1..nops(newData)-1);
