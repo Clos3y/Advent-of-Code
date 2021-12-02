@@ -1,0 +1,9 @@
+restart;
+
+data := readdata("input.txt",string,2);
+
+data := map2(subs,["up"=<0,-1>,"down"=<0,1>,"forward"=<1,0>],data);
+
+totaldist := add([seq(parse(i[2]) * i[1], i in data)]);
+
+mul(i, i in totaldist);

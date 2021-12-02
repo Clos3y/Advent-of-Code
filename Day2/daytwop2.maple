@@ -1,0 +1,25 @@
+restart;
+
+data := readdata("input.txt",string,2):
+
+aim := 0:
+
+horiz := 0;
+depth := 0;
+
+for i in data do;
+
+if i[1] = "up" then;
+aim := aim - parse(i[2]);
+print(aim);
+elif i[1] = "down" then;
+aim := aim + parse(i[2]);
+print(aim);
+elif i[1] = "forward" then;
+horiz := horiz + parse(i[2]);
+depth := depth + aim*parse(i[2]);
+print(depth,horiz);
+else end if;
+od;
+
+depth*horiz;
