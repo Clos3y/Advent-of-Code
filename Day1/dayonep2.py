@@ -7,16 +7,16 @@ def DayOne(filename: str):
 
 		data = file.readlines()
 
-	tempdat = []
+		tempdat = []
 
-	for i in range(len(data) - 2):
-		tempdat.append(np.sum(list(map(int,data[i:i+3])),dtype=int))
+		for i in range(len(data) - 2):
+			tempdat.append(np.sum(list(map(int,data[i:i+3])),dtype=int))
 
-	for i in range(len(tempdat) - 1):
-		if tempdat[i+1] > tempdat[i]:
-			counter += 1
-		else:
-			continue
+		for i in range(len(tempdat) - 1):
+			if tempdat[i+1] > tempdat[i]:
+				counter += 1
+			else:
+				continue
 
 	return counter
 
