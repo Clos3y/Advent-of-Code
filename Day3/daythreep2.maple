@@ -1,0 +1,62 @@
+restart;
+
+data := readdata("test.txt",string);
+
+
+modals := proc(datas,method:="normal"):
+
+Values := [seq([],i in datas[1])];
+
+for i in datas do:
+for k,j in i do:
+Values[k] := [op(Values[k]),j];
+od:
+od:
+
+tradmode := map(Statistics[Mode],Values);
+
+if method="normal" then;
+
+return tradmode;
+
+elif method="CO2" then;
+
+for k,i in Values do:
+
+if numboccur("1",i) = numboccur("0",i) then;
+
+tradmode[k] := "0";
+
+else 
+
+end if;
+
+od;
+
+return tradmode;
+
+elif method="OX" then;
+
+for k,i in Values do:
+
+if numboccur("1",i) = numboccur("0",i) then;
+
+tradmode[k] := "1";
+
+else 
+
+end if;
+
+od;
+
+return tradmode;
+
+else end if;
+
+end proc;
+
+for j in data do;
+if j = MapleTA:-Builtin[strcat](op(modals(data,"OX"))) then;
+print(j);
+else end if;
+od;

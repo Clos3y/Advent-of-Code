@@ -1,0 +1,17 @@
+restart;
+
+data := readdata("input.txt",string);
+
+Values := [seq([],i in data[1])];
+
+for i in data do:
+for k,j in i do:
+Values[k] := [op(Values[k]),j];
+od:
+od:
+
+GammaRate := Bits[Join](ListTools[Reverse](map(parse,map(Statistics[Mode],Values))));
+
+EpsilonRate := Bits[Not](GammaRate,bits=nops(Values));
+
+power := EpsilonRate * GammaRate;
