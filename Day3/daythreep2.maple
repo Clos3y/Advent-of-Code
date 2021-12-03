@@ -1,7 +1,7 @@
 restart;
 
 # Read data in
-data := readdata("/home/sam/Repositories/AdventOfCode/Day3/input.txt",string);
+data := readdata("input.txt",string);
 
 # Gets all the values in a list of lists
 
