@@ -1,11 +1,13 @@
 restart;
 
-data := readdata("test.txt",string);
+# Read data in
+data := readdata("/home/sam/Repositories/AdventOfCode/Day3/input.txt",string);
 
+# Gets all the values in a list of lists
 
-modals := proc(datas,method:="normal"):
+valcalc := proc(datas):
 
-Values := [seq([],i in datas[1])];
+Values := [seq([],i in data[1])];
 
 for i in datas do:
 for k,j in i do:
@@ -13,50 +15,88 @@ Values[k] := [op(Values[k]),j];
 od:
 od:
 
-tradmode := map(Statistics[Mode],Values);
+return Values
 
-if method="normal" then;
+end proc;
 
-return tradmode;
+# Modal function
 
-elif method="CO2" then;
+modals := proc(datas,method:="normal"):
 
-for k,i in Values do:
+if method = "normal" then;
 
-if numboccur("1",i) = numboccur("0",i) then;
+return map(Statistics[Mode],valcalc(datas));
 
-tradmode[k] := "0";
+elif method = "oxygen" then;
 
-else 
+tmp_list := [seq([], i in datas[1])]:
 
-end if;
+for k,i in valcalc(datas) do:
 
-od;
+if is(numboccur(i,"1") = numboccur(i,"0")) then;
 
-return tradmode;
+tmp_list[k] := "1";
 
-elif method="OX" then;
+else;
 
-for k,i in Values do:
-
-if numboccur("1",i) = numboccur("0",i) then;
-
-tradmode[k] := "1";
-
-else 
+tmp_list[k] := Statistics[Mode](i);
 
 end if;
 
 od;
 
-return tradmode;
+return tmp_list;
+
+elif method = "CO2" then;
+
+tmp_list := [seq([], i in datas[1])]:
+
+for k,i in valcalc(datas) do:
+
+if is(numboccur(i,"1") = numboccur(i,"0")) then;
+
+tmp_list[k] := "0";
+
+else;
+
+tmp_list[k] := `if`(Statistics[Mode](i)="1","0","1");
+
+end if;
+
+od;
+
+return tmp_list;
 
 else end if;
 
 end proc;
 
-for j in data do;
-if j = MapleTA:-Builtin[strcat](op(modals(data,"OX"))) then;
-print(j);
+# Oxygen section test
+testing := proc(datas,method:="normal",loopno:=1):
+
+guess := modals(datas,method);
+
+new_dat := [];
+
+for i in datas do;
+
+if i[loopno] = guess[loopno] then;
+
+new_dat := [op(new_dat),i];
+
 else end if;
+
 od;
+
+if nops(new_dat) = 1 then;
+return new_dat[1];
+else;
+testing(new_dat,method,loopno+1);
+end if;
+
+end proc;
+
+ox_rat := MapleTA:-Builtin[strcat](op(ListTools[Reverse](convert(ListTools[Reverse]([seq(parse(i),i in testing(data,"oxygen"))]),'base',2,10))));
+co_srub := MapleTA:-Builtin[strcat](op(ListTools[Reverse](convert(ListTools[Reverse]([seq(parse(i),i in testing(data,"CO2"))]),'base',2,10))));
+
+parse(ox_rat) * parse(co_srub);
