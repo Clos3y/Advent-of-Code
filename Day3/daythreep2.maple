@@ -15,7 +15,7 @@ Values[k] := [op(Values[k]),j];
 od:
 od:
 
-return Values
+return Values;
 
 end proc;
 
@@ -96,6 +96,7 @@ end if;
 
 end proc;
 
+# These two lines are remarkably inefficient
 ox_rat := MapleTA:-Builtin[strcat](op(ListTools[Reverse](convert(ListTools[Reverse]([seq(parse(i),i in testing(data,"oxygen"))]),'base',2,10))));
 co_srub := MapleTA:-Builtin[strcat](op(ListTools[Reverse](convert(ListTools[Reverse]([seq(parse(i),i in testing(data,"CO2"))]),'base',2,10))));
 
