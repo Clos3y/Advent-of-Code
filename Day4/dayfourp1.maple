@@ -1,0 +1,24 @@
+restart;
+
+data := parse(readline("input.txt"));
+
+M :=ImportMatrix("input.txt",datatype=integer,skiplines=1,delimiter=" ");
+
+ListOfRows := seq(M[i],i = 1..op(1,M)[1]);
+
+bingoCards := []:
+
+for i from 0 to op(1,M)[1]/op(1,M)[2] - 1 do: 
+bingoCards :=[op( bingoCards),[seq(ListOfRows[op(1,M)[2]*i+j + 1],j=0..4)]]:
+od:
+
+bingoCards := map(ArrayTools[Reshape],map(Matrix,bingoCards),5,5):
+
+for i in data do:
+
+if member(i,bingoCards[1]) then;
+bingoCards[ArrayTools[SearchArray]] := 0
+else end if;
+
+od;
+
