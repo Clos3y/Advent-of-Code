@@ -14,17 +14,17 @@ od:
 
 bingoCards := map(ArrayTools[Reshape],map(Matrix,bingoCards),5,5):
 
-
-print(%);
-
-
 bingoCaller := proc(numbers,cards::list):
 
-bingoCopy := copy(cards,deep);
+local blacklist:=[];
+
+local_cards := cards;
+
+bingoCopy := copy(local_cards,deep);
 
 for i in numbers do:
 
-for k,j in cards do:
+for k,j in local_cards do:
 
 if member(i,j) then;
 
@@ -32,12 +32,16 @@ ind := rtable_scanblock(j,[],(val,ind,res) -> `if`(val=i,ind,res),[[1,1],j[1,1]]
 
 j[op(ind)] := I;
 
-if member(5*I,MTM[sum](j,1)) or member(5*I,MTM[sum](j,2)) then;
-return bingoCopy[k],j,i*Re(add(p,p in j));
+if (member(5*I,MTM[sum](j,1)) or member(5*I,MTM[sum](j,2))) and nops(local_cards) <> 1 then;
+local_cards := remove(has,local_cards,j);
+elif (member(5*I,MTM[sum](j,1)) or member(5*I,MTM[sum](j,2))) and nops(local_cards) = 1 then;
+return bingoCopy[k],j,Re(add(p,p in j))*i
 else end if;  
 
 else end if;
+
 od;
+
 od;
 
 end proc;
