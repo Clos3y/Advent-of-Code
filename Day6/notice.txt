@@ -1,0 +1,3 @@
+Even making Maple run this code efficiently, it would still take an estimated 46 years to get the answer for 256 days. 
+
+To get an answer in finite time, I'd need a smarter method. I think the answer is around about 1.9e12

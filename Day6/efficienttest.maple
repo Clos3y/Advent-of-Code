@@ -1,0 +1,21 @@
+restart;
+
+fish_takeover := proc(days :: integer,file :: string) :: integer;
+
+fish := Array([parse(readline(file))],datatype=integer[1]);
+
+for i from 1 to days do:
+
+counter := 0;
+
+fish := Threads[Map](j -> if j - 1 >= 0 then j-1 else counter := counter + 1; 6;  end if,fish);
+
+if counter > 0 then seq(ArrayTools[Append](fish,8),k=1..counter) else end if;
+
+od;
+
+return ArrayNumElems(fish);
+
+end proc;
+
+fish_takeover(10,"input.txt");
