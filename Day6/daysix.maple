@@ -1,0 +1,31 @@
+restart;
+
+fish_takeover := proc(days :: integer,file :: string) :: integer;
+
+fish := Array([parse(readline(file))],datatype=integer[1]);
+
+for i from 1 to days do:
+
+for k,j in fish do:
+
+if j - 1 >= 0 then;
+
+fish[k] := j - 1;
+
+else;
+
+fish[k] := 6;
+
+ArrayTools[Append](fish,8);
+
+end if;
+
+od;
+
+od;
+
+return ArrayNumElems(fish);
+
+end proc;
+
+fish_takeover(256,"input.txt");
