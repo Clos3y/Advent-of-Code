@@ -1,0 +1,29 @@
+restart;
+
+fish_takeover := proc(days :: integer,file :: string) :: integer;
+
+uses ArrayTools;
+
+initial_data := [parse(readline(file))];
+
+occurences := [seq(numboccur(initial_data,i),i=0..8)];
+
+for i from 1 to days do:
+
+new_fish := Array([seq(occurences[j+1],j=1..8)],datatype=integer);
+
+new_fish := Append(new_fish,occurences[1]);
+
+new_fish[7] := new_fish[7] + occurences[1];
+
+occurences := copy(new_fish,deep);
+
+od;
+
+print(occurences);
+
+return AddAlongDimension(occurences);
+
+end proc;
+
+fish_takeover(256,"input.txt");
