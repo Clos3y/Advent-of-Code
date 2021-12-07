@@ -1,0 +1,17 @@
+restart;
+
+data := [parse(readline("input.txt"))]:
+
+target := Statistics[Median](data);
+
+fuel := 0:
+
+for i in data do:
+
+difference := abs(target - i); 
+
+fuel := difference + fuel;
+
+od:
+
+print(convert(fuel,integer));

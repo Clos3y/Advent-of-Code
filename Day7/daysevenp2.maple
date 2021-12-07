@@ -1,0 +1,30 @@
+restart;
+
+data := Array([parse(readline("input.txt"))],datatype=integer):
+
+target := round(Statistics[Mean](data));
+
+fuel := 0:
+
+counter := Array([seq(1,i=1..ArrayNumElems(data))],datatype=integer):
+while ArrayNumElems(data) <> numboccur(data,target) do:
+
+for j,i in data do:
+
+if i <> target then;
+
+data[j] := data[j] +  signum(target - i)*1;
+
+fuel := fuel + counter[j];
+
+counter[j] := counter[j] + 1;
+
+else end if;
+
+od:
+
+#target := round(Statistics[Median](data));
+
+od:
+
+print(fuel);
