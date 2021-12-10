@@ -1,0 +1,43 @@
+restart;
+
+bracket := proc(data):
+
+left_brackets := ["<","[","{","("];
+
+right_brackets := [">","]","}",")"];
+
+scores := [25137,57,1197,3];
+
+score := 0;
+
+for j in data do:
+
+if StringTools[Length](j) mod 2 = 0 then;
+
+counter := [seq(0, i in left_brackets)];
+
+for i in j do:
+
+counter := [seq(counter[k] + `if`(i = left_brackets[k],1,0),k = 1..nops(left_brackets))];
+
+counter := [seq(counter[k] - `if`(i = right_brackets[k],1,0),k = 1..nops(left_brackets))];
+
+if map[reduce=`or`](is,counter,negative) then;
+
+score := score + add(a, a in (scores *~ subs({true=1,false=0},map(is,counter,negative))));
+
+break;
+
+else end if;
+
+od;
+
+else continue end if;
+
+od;
+
+return score
+
+end proc;
+
+bracket(readdata("input.txt",string));
