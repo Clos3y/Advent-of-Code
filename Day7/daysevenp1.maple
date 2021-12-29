@@ -13,5 +13,3 @@ difference := abs(target - i);
 fuel := difference + fuel;
 
 od:
-
-print(convert(fuel,integer));
